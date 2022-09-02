@@ -1,0 +1,9 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "quotes": "off",
+    "comma-dangle": "off",
+    "strict": "warn",
+    "eol-last": "off"
+  }
+}
