@@ -1,13 +1,12 @@
 "use strict";
+
 const Job = require("../models").job;
 const User = require("../models").user;
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     const job1 = await Job.findOne({
-      where: { title: "Senior Accountant" },
-    });
-    const job2 = await Job.findOne({
-      where: { title: "Junior Fullstack Developer" },
+      where: { title: "junior Fullstack Developer" },
     });
     const candidate1 = await User.findOne({
       where: { email: "navanjani30@gmail.com" },
@@ -22,7 +21,7 @@ module.exports = {
           coverLetter: "hjfdgdj",
           cv: "chhgj",
           linkedinUrl: "ddghasfg",
-          jobId: job2.id,
+          jobId: job1.id,
           userId: candidate1.id,
           createdAt: new Date(),
           updatedAt: new Date(),
