@@ -1,10 +1,10 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "atjkrspx",
+    "password": "TR11A4IxKCv8yyfvBw4Q30d5V5KlYwXL",
+    "database": "atjkrspx",
+    "host": "abul.db.elephantsql.com",
+    "dialect": "postgres"
   },
   "test": {
     "username": "root",
