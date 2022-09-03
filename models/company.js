@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       company.hasMany(models.user, { foreignKey: "companyId" });
       company.hasMany(models.transaction, { foreignKey: "companyId" });
       company.hasMany(models.department, { foreignKey: "companyId" });
-      company.belongsTo(models.package, { foreignKey: "packageId" });
+      company.belongsTo(models.subscription, { foreignKey: "subscriptionId" });
     }
   }
 
@@ -26,13 +26,13 @@ module.exports = (sequelize, DataTypes) => {
       primaryColor: {
         type: DataTypes.STRING,
       },
-      text_color: {
+      textColor: {
         type: DataTypes.STRING,
       },
       logo: {
         type: DataTypes.STRING,
       },
-      packageValidTill: DataTypes.DATE,
+      subscriptionValidTill: DataTypes.DATE,
       slug: {
         type: DataTypes.STRING,
         allowNull: false,

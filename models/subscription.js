@@ -3,14 +3,14 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
-  class package extends Model {
+  class subscription extends Model {
     static associate(models) {
-      package.hasMany(models.company, { foreignKey: "packageId" });
-      package.hasMany(models.transaction, { foreignKey: "packageId" });
+      subscription.hasMany(models.company, { foreignKey: "subscriptionId" });
+      subscription.hasMany(models.transaction, { foreignKey: "subscriptionId" });
     }
   }
 
-  package.init(
+  subscription.init(
     {
       name: {
         allowNull: false,
@@ -27,8 +27,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "package",
+      modelName: "subscription",
     }
   );
-  return package;
+  return subscription;
 };

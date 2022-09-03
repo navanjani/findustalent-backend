@@ -17,6 +17,16 @@ const PAYMENT_TYPE_VISA_MASTER = 1;
 const PAYMENT_TYPE_IDEAL = 2;
 const PAYMENT_TYPE_PAYPAL = 3;
 
+// Package Configs
+const PACKAGE_FREE = {
+  jobLimit: 2,
+  durationInMonths: 1,
+};
+const PACKAGE_PREMIUM = {
+  jobLimit: 20,
+  durationInMonths: 12,
+};
+
 module.exports = {
   USER_TYPE_ADMIN,
   USER_TYPE_RECRUITER,
@@ -29,4 +39,6 @@ module.exports = {
   PAYMENT_TYPE_VISA_MASTER,
   PAYMENT_TYPE_IDEAL,
   PAYMENT_TYPE_PAYPAL,
+  PACKAGE_FREE,
+  PACKAGE_PREMIUM,
 };

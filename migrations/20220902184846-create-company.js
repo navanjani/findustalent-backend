@@ -26,7 +26,7 @@ module.exports = {
       logo: {
         type: Sequelize.STRING,
       },
-      packageValidTill: {
+      subscriptionValidTill: {
         allowNull: false,
         type: Sequelize.DATE,
       },

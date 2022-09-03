@@ -6,9 +6,9 @@ const { USER_TYPE_CANDIDATE } = require("../config/constants");
 module.exports = (sequelize, DataTypes) => {
   class user extends Model {
     static associate(models) {
-      user.belongsToMany(models.jobs, {
-        through: "jobCandidates",
-      });
+      // user.belongsToMany(models.jobs, {
+      //   through: "jobCandidate",
+      // });
       user.belongsTo(models.company, { foreignKey: "companyId" });
     }
   }

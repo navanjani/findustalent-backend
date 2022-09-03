@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "atjkrspx",
-    "password": "TR11A4IxKCv8yyfvBw4Q30d5V5KlYwXL",
-    "database": "atjkrspx",
-    "host": "abul.db.elephantsql.com",
+    "username": "postgres",
+    "password": "postgres",
+    "database": "postgres",
+    "host": "localhost",
     "dialect": "postgres"
   },
   "test": {

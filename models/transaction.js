@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class transaction extends Model {
     static associate(models) {
       transaction.belongsTo(models.company, { foreignKey: "companyId" });
-      transaction.belongsTo(models.package, { foreignKey: "packageId" });
+      transaction.belongsTo(models.subscription, { foreignKey: "subscriptionId" });
     }
   }
 

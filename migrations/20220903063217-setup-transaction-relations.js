@@ -11,10 +11,10 @@ module.exports = {
       onUpdate: "CASCADE",
       onDelete: "SET NULL",
     });
-    await queryInterface.addColumn("transactions", "packageId", {
+    await queryInterface.addColumn("transactions", "subscriptionId", {
       type: Sequelize.INTEGER,
       references: {
-        model: "packages",
+        model: "subscriptions",
         key: "id",
       },
       onUpdate: "CASCADE",
@@ -24,6 +24,6 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     await queryInterface.removeColumn("transactions", "companyId");
-    await queryInterface.removeColumn("transactions", "packageId");
+    await queryInterface.removeColumn("transactions", "subscriptionId");
   },
 };
