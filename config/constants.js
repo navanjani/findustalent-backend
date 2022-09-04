@@ -1,44 +1,34 @@
-// User Types
-const USER_TYPE_ADMIN = 1;
-const USER_TYPE_RECRUITER = 2;
-const USER_TYPE_CANDIDATE = 3;
-
-// Application Statuses
-const APPLICATION_STATUS_APPLIED = 1;
-
-// Transaction Statuses
-const TRANSACTION_STATUS_STARTED = 1;
-const TRANSACTION_STATUS_PAID = 2;
-const TRANSACTION_STATUS_REJECTED = 3;
-const TRANSACTION_STATUS_REFUNDED = 4;
-
-// Payment Types
-const PAYMENT_TYPE_VISA_MASTER = 1;
-const PAYMENT_TYPE_IDEAL = 2;
-const PAYMENT_TYPE_PAYPAL = 3;
-
-// Package Configs
-const PACKAGE_FREE = {
-  jobLimit: 2,
-  durationInMonths: 1,
-};
-const PACKAGE_PREMIUM = {
-  jobLimit: 20,
-  durationInMonths: 12,
-};
-
 module.exports = {
-  USER_TYPE_ADMIN,
-  USER_TYPE_RECRUITER,
-  USER_TYPE_CANDIDATE,
-  APPLICATION_STATUS_APPLIED,
-  TRANSACTION_STATUS_STARTED,
-  TRANSACTION_STATUS_PAID,
-  TRANSACTION_STATUS_REJECTED,
-  TRANSACTION_STATUS_REFUNDED,
-  PAYMENT_TYPE_VISA_MASTER,
-  PAYMENT_TYPE_IDEAL,
-  PAYMENT_TYPE_PAYPAL,
-  PACKAGE_FREE,
-  PACKAGE_PREMIUM,
+  // App settings
+  SALT_ROUNDS: 10,
+  PORT: process.env.PORT || 4000,
+
+  // User Types
+  USER_TYPE_ADMIN: 1,
+  USER_TYPE_RECRUITER: 2,
+  USER_TYPE_CANDIDATE: 3,
+
+  // Application Statuses
+  APPLICATION_STATUS_APPLIED: 1,
+
+  // Transaction Statuses
+  TRANSACTION_STATUS_STARTED: 1,
+  TRANSACTION_STATUS_PAID: 2,
+  TRANSACTION_STATUS_REJECTED: 3,
+  TRANSACTION_STATUS_REFUNDED: 4,
+
+  // Payment Types
+  PAYMENT_TYPE_VISA_MASTER: 1,
+  PAYMENT_TYPE_IDEAL: 2,
+  PAYMENT_TYPE_PAYPAL: 3,
+
+  // Package Configs
+  PACKAGE_FREE: {
+    jobLimit: 2,
+    durationInMonths: 1,
+  },
+  PACKAGE_PREMIUM: {
+    jobLimit: 20,
+    durationInMonths: 12,
+  },
 };
