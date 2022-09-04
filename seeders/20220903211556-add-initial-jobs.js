@@ -39,7 +39,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          title: "junior Fullstack Developer",
+          title: "Junior Fullstack Developer",
           description: "Junior Fullstack",
           salary: "35000",
           location: "Amsterdam",

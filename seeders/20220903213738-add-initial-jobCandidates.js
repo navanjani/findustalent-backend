@@ -6,7 +6,7 @@ const User = require("../models").user;
 module.exports = {
   async up(queryInterface, Sequelize) {
     const job1 = await Job.findOne({
-      where: { title: "junior Fullstack Developer" },
+      where: { title: "Junior Fullstack Developer" },
     });
     const candidate1 = await User.findOne({
       where: { email: "navanjani30@gmail.com" },
@@ -20,7 +20,7 @@ module.exports = {
           lastName: "Dassanayake",
           coverLetter: "hjfdgdj",
           cv: "chhgj",
-          linkedinUrl: "ddghasfg",
+          linkedinUrl: "https://www.linkedin.com/in/navanjani/",
           jobId: job1.id,
           userId: candidate1.id,
           createdAt: new Date(),
