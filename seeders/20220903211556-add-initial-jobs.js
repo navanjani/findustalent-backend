@@ -28,6 +28,7 @@ module.exports = {
       [
         {
           title: "Senior Accountant",
+          slug: "senior-accountant",
           description: "Senior Accountant",
           salary: "60000",
           location: "Amsterdam",
@@ -40,6 +41,7 @@ module.exports = {
         },
         {
           title: "Junior Fullstack Developer",
+          slug: "junior-fullstack-developer",
           description: "Junior Fullstack",
           salary: "35000",
           location: "Amsterdam",
