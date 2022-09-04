@@ -1,6 +1,8 @@
 const { Router } = require("express");
 const Company = require("../models").company;
 const Job = require("../models").job;
+const Category = require("../models").category;
+const Department = require("../models").department;
 
 const router = new Router();
 
@@ -11,7 +13,19 @@ router.get("/:companySlug/jobs", async (req, res, next) => {
     if (!company) {
       return res.status(404).json({ message: "Company not found" });
     }
-    const jobs = await Job.findAll({ where: { companyId: company.id } });
+    const jobs = await Job.findAll({
+      where: { companyId: company.id },
+      include: [
+        {
+          model: Category,
+          attributes: ["id", "name"],
+        },
+        {
+          model: Department,
+          attributes: ["id", "name"],
+        },
+      ],
+    });
     return res.json({
       jobs,
       total: jobs.length,
