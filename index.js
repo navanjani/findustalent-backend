@@ -3,6 +3,7 @@ const express = require("express");
 const corsMiddleWare = require("cors");
 
 // Routes
+const authRoutes = require("./routes/auth");
 const companyRoutes = require("./routes/company");
 
 // constants
@@ -15,6 +16,7 @@ const app = express();
 app.use(corsMiddleWare());
 app.use(express.json());
 
+app.use("/auth", authRoutes);
 app.use("/companies", companyRoutes);
 
 // start listening
