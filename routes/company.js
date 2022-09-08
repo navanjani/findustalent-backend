@@ -13,6 +13,7 @@ const {
   EMPLOYMENT_REMOTE,
   EMPLOYMENT_TRAINING,
 } = require("../config/constants");
+const { CAREER_ENTRY_LEVEL, CAREER_MID_LEVEL, CAREER_SENIOR_LEVEL, CAREER_EXECUTIVE_LEVEL } = require("../config/constants");
 const router = new Router();
 
 router.get("/:companySlug/jobs", async (req, res, next) => {
@@ -77,7 +78,45 @@ router.get("/employment-types", async (req, res, next) => {
   });
 });
 
-router.post("/jobs", authMiddleware, isRecruiterMiddleware, async (req, res, next) => {
+router.get("/career-levels", async (req, res, next) => {
+  return res.json({
+    levels: [
+      {
+        id: CAREER_ENTRY_LEVEL,
+        level: "Entry Level",
+      },
+      {
+        id: CAREER_MID_LEVEL,
+        level: "Mid Level",
+      },
+      {
+        id: CAREER_SENIOR_LEVEL,
+        level: "Senior Level",
+      },
+      {
+        id: CAREER_EXECUTIVE_LEVEL,
+        level: "Executive Level",
+      },
+    ],
+  });
+});
+
+router.get("/:companyId/departments", authMiddleware, isRecruiterMiddleware, async (req, res, next) => {
+  try {
+    const { companyId } = req.user;
+    if (Number(req.params.companyId) !== companyId) {
+      return res.status(403).json({ message: "Not an Authorized user" });
+    }
+    const departments = await Department.findAll({ where: { companyId: companyId } });
+    return res.json({ departments });
+  } catch (e) {
+    console.log(e.message);
+    next(e);
+    return res.status(500).send({ message: "Something went wrong, sorry" });
+  }
+});
+
+router.post("/:companyId/jobs", authMiddleware, isRecruiterMiddleware, async (req, res, next) => {
   const { title, location, category, description, careerLevel, employmentType, closingDate, salaryRange } = req.body;
   if (!title || !description || !salaryRange || !location || !category || !closingDate || !careerLevel || !employmentType) {
     return res.status(400).json({ message: "Missing required fields" });
