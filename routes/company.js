@@ -3,7 +3,16 @@ const Company = require("../models").company;
 const Job = require("../models").job;
 const Category = require("../models").category;
 const Department = require("../models").department;
-
+const authMiddleware = require("../auth/middleware");
+const isRecruiterMiddleware = require("../auth/isRecruiterMiddleware");
+const {
+  EMPLOYMENT_FULLTIME,
+  EMPLOYMENT_CONTRACT,
+  EMPLOYMENT_INTERNSHIP,
+  EMPLOYMENT_PARTTIME,
+  EMPLOYMENT_REMOTE,
+  EMPLOYMENT_TRAINING,
+} = require("../config/constants");
 const router = new Router();
 
 router.get("/:companySlug/jobs", async (req, res, next) => {
@@ -34,6 +43,44 @@ router.get("/:companySlug/jobs", async (req, res, next) => {
     console.log(e.message);
     next(e);
     return res.status(500).send({ message: "Something went wrong, sorry" });
+  }
+});
+
+router.get("/employment-types", async (req, res, next) => {
+  return res.json({
+    types: [
+      {
+        id: EMPLOYMENT_FULLTIME,
+        type: "Fulltime",
+      },
+      {
+        id: EMPLOYMENT_PARTTIME,
+        type: "Parttime",
+      },
+      {
+        id: EMPLOYMENT_REMOTE,
+        type: "Remote",
+      },
+      {
+        id: EMPLOYMENT_CONTRACT,
+        type: "Contract",
+      },
+      {
+        id: EMPLOYMENT_INTERNSHIP,
+        type: "Internship",
+      },
+      {
+        id: EMPLOYMENT_TRAINING,
+        type: "Training",
+      },
+    ],
+  });
+});
+
+router.post("/jobs", authMiddleware, isRecruiterMiddleware, async (req, res, next) => {
+  const { title, location, category, description, careerLevel, employmentType, closingDate, salaryRange } = req.body;
+  if (!title || !description || !salaryRange || !location || !category || !closingDate || !careerLevel || !employmentType) {
+    return res.status(400).json({ message: "Missing required fields" });
   }
 });
 module.exports = router;

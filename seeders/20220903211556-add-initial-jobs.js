@@ -1,6 +1,7 @@
 "use strict";
 
 const { company: Company } = require("../models");
+const { CAREER_SENIOR_LEVEL, CAREER_ENTRY_LEVEL, EMPLOYMENT_FULLTIME, EMPLOYMENT_CONTRACT } = require("../config/constants");
 const Category = require("../models").category;
 const Department = require("../models").department;
 module.exports = {
@@ -30,9 +31,11 @@ module.exports = {
           title: "Senior Accountant",
           slug: "senior-accountant",
           description: "Senior Accountant",
-          salary: "60000",
+          salaryRange: "55000-75000",
           location: "Amsterdam",
           closingDate: "2022-09-20",
+          careerLevel: CAREER_SENIOR_LEVEL,
+          employmentType: EMPLOYMENT_FULLTIME,
           companyId: company1.id,
           categoryId: category1.id,
           departmentId: department1.id,
@@ -43,9 +46,11 @@ module.exports = {
           title: "Junior Fullstack Developer",
           slug: "junior-fullstack-developer",
           description: "Junior Fullstack",
-          salary: "35000",
+          salaryRange: "35000-55000",
           location: "Amsterdam",
           closingDate: "2022-09-10",
+          careerLevel: CAREER_ENTRY_LEVEL,
+          employmentType: EMPLOYMENT_CONTRACT,
           companyId: company2.id,
           categoryId: category2.id,
           departmentId: department2.id,

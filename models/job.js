@@ -27,8 +27,8 @@ module.exports = (sequelize, DataTypes) => {
       image: {
         type: DataTypes.TEXT,
       },
-      salary: {
-        type: DataTypes.INTEGER,
+      salaryRange: {
+        type: DataTypes.STRING,
       },
       location: {
         type: DataTypes.STRING,
@@ -40,6 +40,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       slug: {
         type: DataTypes.STRING,
+        allowNull: false,
+      },
+      careerLevel: {
+        type: DataTypes.SMALLINT,
+        allowNull: false,
+      },
+      employmentType: {
+        type: DataTypes.SMALLINT,
         allowNull: false,
       },
     },

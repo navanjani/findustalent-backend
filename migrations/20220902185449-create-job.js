@@ -19,8 +19,8 @@ module.exports = {
       image: {
         type: Sequelize.STRING,
       },
-      salary: {
-        type: Sequelize.INTEGER,
+      salaryRange: {
+        type: Sequelize.STRING,
       },
       location: {
         allowNull: false,
