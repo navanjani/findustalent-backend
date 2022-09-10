@@ -1,7 +1,14 @@
 "use strict";
 
 const { company: Company } = require("../models");
-const { CAREER_SENIOR_LEVEL, CAREER_ENTRY_LEVEL, EMPLOYMENT_FULLTIME, EMPLOYMENT_CONTRACT } = require("../config/constants");
+const {
+  CAREER_SENIOR_LEVEL,
+  CAREER_ENTRY_LEVEL,
+  EMPLOYMENT_FULLTIME,
+  EMPLOYMENT_CONTRACT,
+  SALARY_RANGE_55000_65000,
+  SALARY_RANGE_35000_45000,
+} = require("../config/constants");
 const Category = require("../models").category;
 const Department = require("../models").department;
 module.exports = {
@@ -22,7 +29,7 @@ module.exports = {
       where: { name: "Accounts" },
     });
     const department2 = await Department.findOne({
-      where: { name: "Products" },
+      where: { name: "Product" },
     });
     await queryInterface.bulkInsert(
       "jobs",
@@ -31,7 +38,7 @@ module.exports = {
           title: "Senior Accountant",
           slug: "senior-accountant",
           description: "Senior Accountant",
-          salaryRange: "55000-75000",
+          salaryRange: SALARY_RANGE_55000_65000,
           location: "Amsterdam",
           closingDate: "2022-09-20",
           careerLevel: CAREER_SENIOR_LEVEL,
@@ -46,7 +53,7 @@ module.exports = {
           title: "Junior Fullstack Developer",
           slug: "junior-fullstack-developer",
           description: "Junior Fullstack",
-          salaryRange: "35000-55000",
+          salaryRange: SALARY_RANGE_35000_45000,
           location: "Amsterdam",
           closingDate: "2022-09-10",
           careerLevel: CAREER_ENTRY_LEVEL,

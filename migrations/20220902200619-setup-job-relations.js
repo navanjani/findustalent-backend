@@ -4,6 +4,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.addColumn("jobs", "companyId", {
       type: Sequelize.INTEGER,
+      allowNull: false,
       references: {
         model: "companies",
         key: "id",
@@ -13,6 +14,7 @@ module.exports = {
     });
     await queryInterface.addColumn("jobs", "categoryId", {
       type: Sequelize.INTEGER,
+      allowNull: false,
       references: {
         model: "categories",
         key: "id",
@@ -22,6 +24,7 @@ module.exports = {
     });
     await queryInterface.addColumn("jobs", "departmentId", {
       type: Sequelize.INTEGER,
+      allowNull: false,
       references: {
         model: "departments",
         key: "id",

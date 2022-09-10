@@ -20,7 +20,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       salaryRange: {
-        type: Sequelize.STRING,
+        type: Sequelize.SMALLINT,
       },
       location: {
         allowNull: false,

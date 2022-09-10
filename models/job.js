@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
       },
       salaryRange: {
-        type: DataTypes.STRING,
+        type: DataTypes.SMALLINT,
       },
       location: {
         type: DataTypes.STRING,
