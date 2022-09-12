@@ -20,15 +20,17 @@ module.exports = {
       onUpdate: "CASCADE",
       onDelete: "SET NULL",
     });
-    await queryInterface.addConstraint("jobCandidates", {
-      fields: ["email"],
-      type: "foreign key",
-      name: "email_fk_job_candidates",
-      references: {
-        table: "users",
-        field: "email",
-      },
-    });
+    // await queryInterface.addConstraint("jobCandidates", {
+    //   fields: ["email"],
+    //   type: "foreign key",
+    //   name: "email_fk_job_candidates",
+    //   references: {
+    //     table: "users",
+    //     field: "email",
+    //   },
+    //   onUpdate: "CASCADE",
+    //   onDelete: "SET NULL",
+    // });
     await queryInterface.addConstraint("jobCandidates", {
       fields: ["jobId", "email"],
       type: "unique",
@@ -37,7 +39,7 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.removeConstraint("jobCandidates", "email_fk_job_candidates");
+    //await queryInterface.removeConstraint("jobCandidates", "email_fk_job_candidates");
     await queryInterface.removeConstraint("jobCandidates", "jobId_email_unique");
     await queryInterface.removeColumn("jobCandidates", "jobId");
     await queryInterface.removeColumn("jobCandidates", "userId");

@@ -35,6 +35,9 @@ module.exports = (sequelize, DataTypes) => {
       linkedinUrl: {
         type: DataTypes.STRING,
       },
+      phoneNumber: {
+        type: DataTypes.STRING,
+      },
     },
     {
       sequelize,
