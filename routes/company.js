@@ -4,6 +4,7 @@ const Company = require("../models").company;
 const Job = require("../models").job;
 const Department = require("../models").department;
 const Category = require("../models").category;
+const JobCandidates = require("../models").jobCandidate;
 const authMiddleware = require("../auth/middleware");
 const isRecruiterMiddleware = require("../auth/isRecruiterMiddleware");
 const {
@@ -175,6 +176,42 @@ router.get("/:companySlug/jobs/:jobSlug", async (req, res, next) => {
   } catch (e) {
     console.log(e.message);
     return res.status(500).send({ message: "Something went wrong, sorry" });
+  }
+});
+
+router.post("/:companySlug/:jobSlug/apply", async (req, res, next) => {
+  try {
+    const { companySlug, jobSlug } = req.params;
+    const { firstName, lastName, email, phoneNumber, cv, linkedinUrl, coverLetter } = req.body;
+    if (!firstName || !lastName || !email || !phoneNumber || !cv || !linkedinUrl || !coverLetter) {
+      res.status(400).json({ message: "Bad Request" });
+    }
+    const company = await Company.findOne({ where: { slug: companySlug } });
+    if (!company) {
+      res.status(404).json({ message: "Company not found" });
+    }
+    const job = await Job.findOne({ where: { slug: jobSlug } });
+    if (!job) {
+      res.status(404).json({ message: "Job not found" });
+    }
+    const newJobApplication = await JobCandidates.create({
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      cv,
+      coverLetter,
+      linkedinUrl,
+      jobId: job.id,
+    });
+    const jobApplications = await JobCandidates.findAll({ where: { jobId: job.id } });
+    return res.json({
+      message: "Application sent",
+      jobApplications,
+    });
+  } catch (e) {
+    console.log(e.message);
+    next(e);
   }
 });
 
