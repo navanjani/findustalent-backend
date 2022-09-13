@@ -4,7 +4,7 @@ const Company = require("../models").company;
 const Job = require("../models").job;
 const Department = require("../models").department;
 const Category = require("../models").category;
-const JobCandidates = require("../models").jobCandidate;
+const JobCandidate = require("../models").jobCandidate;
 const authMiddleware = require("../auth/middleware");
 const isRecruiterMiddleware = require("../auth/isRecruiterMiddleware");
 const {
@@ -87,10 +87,38 @@ router.post("/:companyId/jobs", authMiddleware, isRecruiterMiddleware, async (re
     });
 
     const jobs = await Job.findAll({ where: { companyId } });
-    res.status(201).json({
+    return res.status(201).json({
       message: "Job posted",
       jobs,
     });
+  } catch (e) {
+    console.log(e.message);
+    return res.status(500).send({ message: "Something went wrong, sorry" });
+  }
+});
+
+router.get("/:companyId([0-9]+)/candidates", authMiddleware, isRecruiterMiddleware, async (req, res, next) => {
+  try {
+    const { companyId } = req.user;
+    if (companyId !== Number(req.params.companyId)) {
+      return res.status(403).json({ message: "Not an Authorized user" });
+    }
+    const companyJobs = await Job.findAll({
+      attributes: ["id"],
+      where: { companyId: companyId },
+      raw: true,
+    });
+    const companyJobIds = companyJobs.map((job) => job.id);
+    const candidates = await JobCandidate.findAll({
+      where: { jobId: companyJobIds },
+      include: [
+        {
+          model: Job,
+          attributes: ["id", "title", "location"],
+        },
+      ],
+    });
+    return res.json({ candidates });
   } catch (e) {
     console.log(e.message);
     return res.status(500).send({ message: "Something went wrong, sorry" });
@@ -103,7 +131,7 @@ router.get("/:companySlug", async (req, res, next) => {
     const { companySlug } = req.params;
     const company = await Company.findOne({ where: { slug: companySlug } });
     if (!company) {
-      res.status(404).json({ message: "Company not found" });
+      return res.status(404).json({ message: "Company not found" });
     }
     return res.json({
       company,
@@ -119,7 +147,7 @@ router.get("/:companySlug/jobs", async (req, res, next) => {
     const { companySlug } = req.params;
     const company = await Company.findOne({ where: { slug: companySlug } });
     if (!company) {
-      res.status(404).json({ message: "Company not found" });
+      return res.status(404).json({ message: "Company not found" });
     }
     const jobs = await Job.findAll({
       where: { companyId: company.id },
@@ -149,7 +177,7 @@ router.get("/:companySlug/jobs/:jobSlug", async (req, res, next) => {
     const { companySlug, jobSlug } = req.params;
     const company = await Company.findOne({ where: { slug: companySlug } });
     if (!company) {
-      res.status(404).json({ message: "Company not found" });
+      return res.status(404).json({ message: "Company not found" });
     }
     const job = await Job.findOne({
       where: {
@@ -168,7 +196,7 @@ router.get("/:companySlug/jobs/:jobSlug", async (req, res, next) => {
       ],
     });
     if (!job) {
-      res.status(404).json({ message: "Job not found" });
+      return res.status(404).json({ message: "Job not found" });
     }
     return res.json({
       job,
@@ -179,20 +207,20 @@ router.get("/:companySlug/jobs/:jobSlug", async (req, res, next) => {
   }
 });
 
-router.post("/:companySlug/:jobSlug/apply", async (req, res, next) => {
+router.post("/:companySlug/jobs/:jobSlug/apply", async (req, res, next) => {
   try {
     const { companySlug, jobSlug } = req.params;
     const { firstName, lastName, email, phoneNumber, cv, linkedinUrl, coverLetter } = req.body;
     if (!firstName || !lastName || !email || !phoneNumber || !cv || !linkedinUrl || !coverLetter) {
-      res.status(400).json({ message: "Bad Request" });
+      return res.status(400).json({ message: "Bad Request" });
     }
     const company = await Company.findOne({ where: { slug: companySlug } });
     if (!company) {
-      res.status(404).json({ message: "Company not found" });
+      return res.status(404).json({ message: "Company not found" });
     }
     const job = await Job.findOne({ where: { slug: jobSlug } });
     if (!job) {
-      res.status(404).json({ message: "Job not found" });
+      return res.status(404).json({ message: "Job not found" });
     }
     const newJobApplication = await JobCandidates.create({
       firstName,
@@ -204,10 +232,9 @@ router.post("/:companySlug/:jobSlug/apply", async (req, res, next) => {
       linkedinUrl,
       jobId: job.id,
     });
-    const jobApplications = await JobCandidates.findAll({ where: { jobId: job.id } });
     return res.json({
       message: "Application sent",
-      jobApplications,
+      applicationId: newJobApplication.id,
     });
   } catch (e) {
     console.log(e.message);
