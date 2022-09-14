@@ -8,7 +8,22 @@ const JobCandidate = require("../models").jobCandidate;
 const JobCandidateStatus = require("../models").jobCandidateStatus;
 const authMiddleware = require("../auth/middleware");
 const isRecruiterMiddleware = require("../auth/isRecruiterMiddleware");
-const { APPLICATION_STATUS_APPLIED } = require("../config/constants");
+const {
+  APPLICATION_STATUS_APPLIED,
+  INDUSTRY_COMPUTER_IT,
+  INDUSTRY_CONSTRUCTION,
+  INDUSTRY_AGRICULTURE,
+  INDUSTRY_EDUCATION,
+  INDUSTRY_ENERGY,
+  INDUSTRY_ELECTRONICS,
+  INDUSTRY_ENTERTAINMENT,
+  INDUSTRY_FOOD,
+  INDUSTRY_HEALTHCARE,
+  INDUSTRY_HOSPITALITY,
+  INDUSTRY_MUSIC,
+  INDUSTRY_TRANSPORT,
+} = require("../config/constants");
+const { subscription: Subscription } = require("../models");
 
 const router = new Router();
 
@@ -41,7 +56,7 @@ router.get("/:companyId([0-9]+)/jobs", authMiddleware, isRecruiterMiddleware, as
   }
 });
 
-router.get("/:companyId/departments", authMiddleware, isRecruiterMiddleware, async (req, res, next) => {
+router.get("/:companyId([0-9]+)/departments", authMiddleware, isRecruiterMiddleware, async (req, res, next) => {
   try {
     const { companyId } = req.user;
     if (Number(req.params.companyId) !== companyId) {
@@ -55,7 +70,7 @@ router.get("/:companyId/departments", authMiddleware, isRecruiterMiddleware, asy
   }
 });
 
-router.post("/:companyId/jobs", authMiddleware, isRecruiterMiddleware, async (req, res, next) => {
+router.post("/:companyId([0-9]+)/jobs", authMiddleware, isRecruiterMiddleware, async (req, res, next) => {
   const { companyId } = req.user;
   if (companyId !== Number(req.params.companyId)) {
     return res.status(403).json({ message: "Not an Authorized user" });
@@ -122,6 +137,61 @@ router.get("/:companyId([0-9]+)/candidates", authMiddleware, isRecruiterMiddlewa
 });
 
 // Public
+router.get("/industries", async (req, res, next) => {
+  return res.json({
+    industries: [
+      {
+        id: INDUSTRY_COMPUTER_IT,
+        industry: "Computer/IT",
+      },
+      {
+        id: INDUSTRY_CONSTRUCTION,
+        industry: "Construction",
+      },
+      {
+        id: INDUSTRY_AGRICULTURE,
+        industry: "Agriculture",
+      },
+      {
+        id: INDUSTRY_EDUCATION,
+        industry: "Education",
+      },
+      {
+        id: INDUSTRY_ENERGY,
+        industry: "Energy",
+      },
+      {
+        id: INDUSTRY_ELECTRONICS,
+        industry: "Electronics",
+      },
+      {
+        id: INDUSTRY_ENTERTAINMENT,
+        industry: "Entertainment",
+      },
+      {
+        id: INDUSTRY_FOOD,
+        industry: "Food",
+      },
+      {
+        id: INDUSTRY_HEALTHCARE,
+        industry: "Health-care",
+      },
+      {
+        id: INDUSTRY_HOSPITALITY,
+        industry: "Hospitality",
+      },
+      {
+        id: INDUSTRY_MUSIC,
+        industry: "Music",
+      },
+      {
+        id: INDUSTRY_TRANSPORT,
+        industry: "Transport",
+      },
+    ],
+  });
+});
+
 router.get("/:companySlug", async (req, res, next) => {
   try {
     const { companySlug } = req.params;
@@ -242,16 +312,15 @@ router.post("/:companySlug/jobs/:jobSlug/apply", async (req, res, next) => {
   }
 });
 
-router.post("/", authMiddleware, async (req, res, next) => {
-  if (req.user.id !== 2) {
-    return res.status(403).json({ message: "Only a recruiter can register a company" });
-  }
+router.post("/", authMiddleware, isRecruiterMiddleware, async (req, res, next) => {
   const { name, industry, location, primaryColor, textColor } = req.body;
   if (!name || !industry || !location || !primaryColor || !textColor) {
     return res.status(400).json({ message: "Missing required fields" });
   }
+  const freePackage = await Subscription.findOne({ where: { name: "Free" } });
   const domain = req.user.email.split("@")[1];
   const slug = domain.split(".").join("-");
+  const date = new Date();
   try {
     const newCompany = await Company.create({
       name,
@@ -261,10 +330,17 @@ router.post("/", authMiddleware, async (req, res, next) => {
       textColor,
       domain,
       slug,
+      subscriptionId: freePackage.id,
+      subscriptionValidTill: new Date(date.setMonth(date.getMonth() + freePackage.config.durationInMonths)),
+    });
+
+    const user = req.user.update({
+      companyId: newCompany.id,
     });
     return res.json({
       message: "Company registered",
       company: newCompany,
+      user: user,
     });
   } catch (e) {
     console.log(e.message);
