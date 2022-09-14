@@ -12,6 +12,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      industry: {
+        allowNull: false,
+        type: Sequelize.SMALLINT,
+      },
       domain: {
         allowNull: false,
         unique: true,
@@ -19,9 +23,11 @@ module.exports = {
       },
       primaryColor: {
         type: Sequelize.STRING,
+        defaultValue: "#ffffff",
       },
       textColor: {
         type: Sequelize.STRING,
+        defaultValue: "#000000",
       },
       logo: {
         type: Sequelize.STRING,

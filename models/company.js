@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      industry: {
+        type: DataTypes.SMALLINT,
+        allowNull: false,
+      },
       domain: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -25,9 +29,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       primaryColor: {
         type: DataTypes.STRING,
+        defaultValue: "#ffffff",
       },
       textColor: {
         type: DataTypes.STRING,
+        defaultValue: "#000000",
       },
       logo: {
         type: DataTypes.STRING,

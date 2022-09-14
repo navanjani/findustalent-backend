@@ -242,4 +242,33 @@ router.post("/:companySlug/jobs/:jobSlug/apply", async (req, res, next) => {
   }
 });
 
+router.post("/", authMiddleware, async (req, res, next) => {
+  if (req.user.id !== 2) {
+    return res.status(403).json({ message: "Only a recruiter can register a company" });
+  }
+  const { name, industry, location, primaryColor, textColor } = req.body;
+  if (!name || !industry || !location || !primaryColor || !textColor) {
+    return res.status(400).json({ message: "Missing required fields" });
+  }
+  const domain = req.user.email.split("@")[1];
+  const slug = domain.split(".").join("-");
+  try {
+    const newCompany = await Company.create({
+      name,
+      industry,
+      location,
+      primaryColor,
+      textColor,
+      domain,
+      slug,
+    });
+    return res.json({
+      message: "Company registered",
+      company: newCompany,
+    });
+  } catch (e) {
+    console.log(e.message);
+  }
+});
+
 module.exports = router;

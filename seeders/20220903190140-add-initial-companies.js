@@ -17,6 +17,7 @@ module.exports = {
         {
           name: "FindUsTalent.com BV",
           domain: "findustalent.com",
+          industry: 1,
           primaryColor: "#FFFFFF",
           textColor: "#000000",
           slug: "findustalent-com",
@@ -28,6 +29,7 @@ module.exports = {
         {
           name: "Navanjani BV",
           domain: "navanjani.com",
+          industry: 1,
           primaryColor: "#d52d2d",
           textColor: "#3e3e3e",
           slug: "navanjani-com",
