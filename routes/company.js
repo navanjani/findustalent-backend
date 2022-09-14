@@ -5,17 +5,10 @@ const Job = require("../models").job;
 const Department = require("../models").department;
 const Category = require("../models").category;
 const JobCandidate = require("../models").jobCandidate;
+const JobCandidateStatus = require("../models").jobCandidateStatus;
 const authMiddleware = require("../auth/middleware");
 const isRecruiterMiddleware = require("../auth/isRecruiterMiddleware");
-const {
-  EMPLOYMENT_FULLTIME,
-  EMPLOYMENT_CONTRACT,
-  EMPLOYMENT_INTERNSHIP,
-  EMPLOYMENT_PARTTIME,
-  EMPLOYMENT_REMOTE,
-  EMPLOYMENT_TRAINING,
-} = require("../config/constants");
-const { CAREER_ENTRY_LEVEL, CAREER_MID_LEVEL, CAREER_SENIOR_LEVEL, CAREER_EXECUTIVE_LEVEL } = require("../config/constants");
+const { APPLICATION_STATUS_APPLIED } = require("../config/constants");
 
 const router = new Router();
 
@@ -115,6 +108,9 @@ router.get("/:companyId([0-9]+)/candidates", authMiddleware, isRecruiterMiddlewa
         {
           model: Job,
           attributes: ["id", "title", "location"],
+        },
+        {
+          model: JobCandidateStatus,
         },
       ],
     });
@@ -231,6 +227,10 @@ router.post("/:companySlug/jobs/:jobSlug/apply", async (req, res, next) => {
       coverLetter,
       linkedinUrl,
       jobId: job.id,
+    });
+    const newJobCandidateStatus = await JobCandidateStatus.create({
+      jobCandidateId: newJobApplication.id,
+      applicationStatus: APPLICATION_STATUS_APPLIED,
     });
     return res.json({
       message: "Application sent",

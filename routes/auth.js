@@ -42,16 +42,24 @@ router.post("/login", async (req, res, next) => {
 
 // signup
 router.post("/signup", async (req, res) => {
-  const { email, password, name } = req.body;
-  if (!email || !password || !name) {
-    return res.status(400).send("Please provide an email, password and a name");
+  const { email, password, firstName, lastName, phoneNumber, userType } = req.body;
+  if (!email || !password || !firstName || !lastName || !userType) {
+    return res.status(400).send("Please provide an email, password and a names");
   }
-
   try {
+    const domain = email.split("@")[1];
+    const company = await Company.findOne({ where: { domain } });
+
+    const companyId = company ? company.id : null;
+
     const newUser = await User.create({
       email,
       password: bcrypt.hashSync(password, SALT_ROUNDS),
-      name,
+      firstName,
+      lastName,
+      phoneNumber,
+      userType,
+      companyId,
     });
 
     delete newUser.dataValues["password"]; // don't send back the password hash
@@ -61,6 +69,7 @@ router.post("/signup", async (req, res) => {
     res.status(201).json({
       token,
       user: newUser.dataValues,
+      company,
     });
   } catch (error) {
     if (error.name === "SequelizeUniqueConstraintError") {
