@@ -136,13 +136,45 @@ router.get("/:companyId([0-9]+)/candidates", authMiddleware, isRecruiterMiddlewa
   }
 });
 
+router.get("/jobs/:jobId([0-9]+)/candidates/:candidateId([0-9]+)", authMiddleware, isRecruiterMiddleware, async (req, res, next) => {
+  try {
+    const { jobId, candidateId } = req.params;
+    // Job posted by users company
+    const job = await Job.findByPk(jobId);
+    if (job.companyId !== req.user.companyId) {
+      return res.status(403).json({ message: "Not an Authorized user" });
+    }
+
+    // Candidate applied to same job we checked above
+    const candidate = await JobCandidate.findOne({
+      where: {
+        id: candidateId,
+        jobId: jobId,
+      },
+      include: [
+        {
+          model: Job,
+          attributes: ["id", "title", "location"],
+        },
+        {
+          model: JobCandidateStatus,
+        },
+      ],
+    });
+    res.json({ candidate });
+  } catch (e) {
+    console.log(e.message);
+    return res.status(500).send({ message: "Something went wrong, sorry" });
+  }
+});
+
 // Public
 router.get("/industries", async (req, res, next) => {
   return res.json({
     industries: [
       {
         id: INDUSTRY_COMPUTER_IT,
-        industry: "Computer/IT",
+        industry: "Computer/ IT",
       },
       {
         id: INDUSTRY_CONSTRUCTION,
