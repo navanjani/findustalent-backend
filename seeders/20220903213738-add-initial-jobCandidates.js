@@ -19,7 +19,7 @@ module.exports = {
           firstName: "Navanjani",
           lastName: "Dassanayake",
           coverLetter: "<p>This is cover letter</p>",
-          cv: "b66922df-a66b-4313-b3cf-a7d9960545d8",
+          cv: "096505f1-6c2c-463f-af8f-3e4ce699843c",
           linkedinUrl: "https://www.linkedin.com/in/navanjani/",
           phoneNumber: "1234567",
           jobId: job1.id,
