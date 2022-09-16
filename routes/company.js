@@ -1,9 +1,9 @@
 const { Router } = require("express");
 const slugify = require("slugify");
 const Company = require("../models").company;
-const Job = require("../models").job;
 const Department = require("../models").department;
 const Category = require("../models").category;
+const Job = require("../models").job;
 const JobCandidate = require("../models").jobCandidate;
 const JobCandidateStatus = require("../models").jobCandidateStatus;
 const authMiddleware = require("../auth/middleware");
