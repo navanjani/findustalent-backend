@@ -19,6 +19,10 @@ const {
   SALARY_RANGE_75000_85000,
   SALARY_RANGE_85000_95000,
   SALARY_RANGE_95000_105000,
+  APPLICATION_STATUS_APPLIED,
+  APPLICATION_STATUS_INTERVIEW,
+  APPLICATION_STATUS_REJECTED,
+  APPLICATION_STATUS_OFFER,
 } = require("../config/constants");
 
 const router = new Router();
@@ -127,4 +131,26 @@ router.get("/categories", async (req, res, next) => {
   return res.status(500).send({ message: "Something went wrong, sorry" });
 });
 
+router.get("/statuses", async (req, res, next) => {
+  return res.json({
+    applicationStatuses: [
+      {
+        id: APPLICATION_STATUS_APPLIED,
+        status: "Applied",
+      },
+      {
+        id: APPLICATION_STATUS_INTERVIEW,
+        status: "Interview",
+      },
+      {
+        id: APPLICATION_STATUS_REJECTED,
+        status: "Rejected",
+      },
+      {
+        id: APPLICATION_STATUS_OFFER,
+        status: "Offer",
+      },
+    ],
+  });
+});
 module.exports = router;
