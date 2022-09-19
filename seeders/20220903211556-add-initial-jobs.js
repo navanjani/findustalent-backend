@@ -52,8 +52,19 @@ module.exports = {
         {
           title: "Senior Fullstack Developer",
           slug: "senior-fullstack-developer",
-          description:
-            "• You're comfortable working with both front- and back-end languages.• You have knowledge of multiple back-end languages (like C#, Java and Python) and JavaScript frameworks (like Angular, React, and Vue). • You have knowledge of multiple front-end languages and libraries (like HTML, CSS and JavaScript). • You're familiar with databases (like MySQL and MongoDB), web servers (e.g. Apache) and UI/UX design. • You have experience with testing and debugging. • You have an eye for layout aesthetics.• You're analytical and good at time management. • You have great communication and problem-solving skills. • You're curious about new technologies and you're excited to find ways to implement them in your work.• You have a big appetite to learn and improve your skills.",
+          description: String(
+            "<h4>Overview</h4>\n" +
+              "<p>As a senior software engineer in the Software Fundamentals team you will be working on internal tooling that sets our product teams up for success. You will be working on foundational software components that provide the engineering teams for a solid foundation. Your passion for creating software that other developers love results in high quality libraries and documentation used throughout the company.\n</p>\n" +
+              '<div class="mt-4">\n' +
+              "  <h4>What you'll be doing:</h4>\n" +
+              "  <ul><li>Deliver and maintain a suite of (opinionated) software components that support application development, operational observability, and message-driven architectures.</li><li>Write comprehensive user-focused documentation that helps developers understand and adopt foundational tooling.</li><li>Support the integration of cloud native solutions into the software stack.</li><li>Help development teams be on top of their dependencies by using dedicated tooling to track and upgrade dependencies.</li></ul>" +
+              "</div>\n" +
+              '<div class="mt-4">\n' +
+              "  <h4>What you'll bring:</h4>\n" +
+              "  <ul><li>A minimum of 6 years of working in a large-scale multi-team multi-application software development environment.</li><li>Extensive experience with PHP, experience with other languages such as Java, Kotlin, TypeScript, or Go is a plus</li><li>Proven experience in providing tools for other developers.</li><li>A pragmatic eye for quality, you know when quality matters.</li><li>Knowledge of observability tooling (metric collection, log aggregation, monitoring).</li><li>Excellent communication skills for communicating with (mostly) technical stakeholders.</li></ul>" +
+              "</div>\n" +
+              "</div>"
+          ),
           salaryRange: SALARY_RANGE_35000_45000,
           location: "Amsterdam",
           closingDate: "2022-09-10",
