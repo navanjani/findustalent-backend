@@ -16,6 +16,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.SMALLINT,
       },
+      location: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       domain: {
         allowNull: false,
         unique: true,

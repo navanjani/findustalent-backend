@@ -6,7 +6,7 @@ const User = require("../models").user;
 module.exports = {
   async up(queryInterface, Sequelize) {
     const job1 = await Job.findOne({
-      where: { title: "Junior Fullstack Developer" },
+      where: { title: "Senior Fullstack Developer" },
     });
     const candidate1 = await User.findOne({
       where: { email: "navanjani30@gmail.com" },

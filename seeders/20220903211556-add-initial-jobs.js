@@ -50,8 +50,8 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          title: "Junior Fullstack Developer",
-          slug: "junior-fullstack-developer",
+          title: "Senior Fullstack Developer",
+          slug: "senior-fullstack-developer",
           description:
             "• You're comfortable working with both front- and back-end languages.• You have knowledge of multiple back-end languages (like C#, Java and Python) and JavaScript frameworks (like Angular, React, and Vue). • You have knowledge of multiple front-end languages and libraries (like HTML, CSS and JavaScript). • You're familiar with databases (like MySQL and MongoDB), web servers (e.g. Apache) and UI/UX design. • You have experience with testing and debugging. • You have an eye for layout aesthetics.• You're analytical and good at time management. • You have great communication and problem-solving skills. • You're curious about new technologies and you're excited to find ways to implement them in your work.• You have a big appetite to learn and improve your skills.",
           salaryRange: SALARY_RANGE_35000_45000,
