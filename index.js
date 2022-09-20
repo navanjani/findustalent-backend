@@ -18,10 +18,10 @@ const app = express();
 app.use(corsMiddleWare());
 app.use(express.json());
 
-app.use("/auth", authRoutes);
-app.use("/companies", companyRoutes);
-app.use("/jobs", jobRoutes);
-app.use("/candidates", candidateRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/companies", companyRoutes);
+app.use("/api/jobs", jobRoutes);
+app.use("/api/candidates", candidateRoutes);
 
 // start listening
 app.listen(PORT, () => {
