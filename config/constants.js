@@ -72,4 +72,6 @@ module.exports = {
     jobLimit: 20,
     durationInMonths: 12,
   },
+
+  FREE_EMAIL_LIST: ["gmail", "yahoo", "outlook", "hotmail", "aol"],
 };
