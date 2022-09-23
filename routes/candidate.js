@@ -12,7 +12,7 @@ router.get("/applications", authMiddleware, isCandidateMiddleware, async (req, r
   try {
     const candidateJobs = await JobCandidate.findAll({
       where: {
-        userId: req.user.id,
+        email: req.user.email,
       },
       include: [
         {

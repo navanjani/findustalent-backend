@@ -332,7 +332,7 @@ router.post("/:companySlug/jobs/:jobSlug/apply", async (req, res, next) => {
     });
     const newJobCandidateStatus = await JobCandidateStatus.create({
       jobCandidateId: newJobApplication.id,
-      applicationStatus: APPLICATION_STATUS_APPLIED,
+      status: APPLICATION_STATUS_APPLIED,
     });
     return res.json({
       message: "Application sent",
