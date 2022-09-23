@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       job.belongsTo(models.department, { foreignKey: "departmentId" });
       job.belongsTo(models.category, { foreignKey: "categoryId" });
       job.belongsTo(models.company, { foreignKey: "companyId" });
+      job.hasMany(models.jobCandidate, { foreignKey: "jobId" });
       // job.belongsToMany(models.users, {
       //   through: "jobCandidate",
       // });

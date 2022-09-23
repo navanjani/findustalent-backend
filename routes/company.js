@@ -44,6 +44,9 @@ router.get("/:companyId([0-9]+)/jobs", authMiddleware, isRecruiterMiddleware, as
           model: Department,
           attributes: ["id", "name"],
         },
+        {
+          model: JobCandidate,
+        },
       ],
     });
     return res.json({
