@@ -12,6 +12,9 @@ module.exports = {
     const company2 = await Company.findOne({
       where: { domain: "navanjani.com" },
     });
+    const company3 = await Company.findOne({
+      where: { domain: "codaisseur.com" },
+    });
     await queryInterface.bulkInsert(
       "users",
       [
@@ -64,6 +67,7 @@ module.exports = {
           phoneNumber: 612345679,
           password: bcrypt.hashSync("recuiter3@2022", 10),
           userType: USER_TYPE_RECRUITER,
+          companyId: company3.id,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
