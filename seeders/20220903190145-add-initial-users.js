@@ -57,6 +57,16 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          firstName: "Navanjani",
+          lastName: "Codaisseur",
+          email: "navanjani@codaisseur.com",
+          phoneNumber: 612345679,
+          password: bcrypt.hashSync("recuiter3@2022", 10),
+          userType: USER_TYPE_RECRUITER,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       {}
     );

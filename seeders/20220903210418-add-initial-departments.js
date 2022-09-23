@@ -9,6 +9,9 @@ module.exports = {
     const company2 = await Company.findOne({
       where: { domain: "navanjani.com" },
     });
+    const company3 = await Company.findOne({
+      where: { domain: "codaisseur.com" },
+    });
     await queryInterface.bulkInsert(
       "departments",
       [
@@ -21,6 +24,18 @@ module.exports = {
         {
           name: "Product",
           companyId: company2.id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: "Product",
+          companyId: company3.id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: "Teaching",
+          companyId: company3.id,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
